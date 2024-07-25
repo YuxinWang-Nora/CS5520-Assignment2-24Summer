@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Color from "./Color";
 
 export const commonStyles = StyleSheet.create({
     defaultScreen: {
@@ -11,6 +12,9 @@ export const commonStyles = StyleSheet.create({
         justifyContent: 'space-between',
         marginRight: 10,
         flexDirection: 'row',
+    },
+    cancelButton: {
+        backgroundColor: Color.cancelButton,
     },
     // screenHeader: {
     //     headerStyle: {
