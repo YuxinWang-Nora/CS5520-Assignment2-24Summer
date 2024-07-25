@@ -6,7 +6,18 @@ export const commonStyles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    rightHeaderIcon: {
+        justifyContent: 'space-between',
+        marginRight: 10,
+        flexDirection: 'row',
+    },
+    // screenHeader: {
+    //     headerStyle: {
+    //         backgroundColor: 'purple',
+    //     },
+    //     headerTintColor: 'white',
+    // }
 });
 
 export default commonStyles;
