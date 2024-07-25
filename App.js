@@ -7,7 +7,7 @@ import Diet from './Screens/Diet';
 import Settings from './Screens/Settings';
 import AddActivities from './Screens/AddActivities';
 import AddDiet from './Screens/AddDiet';
-import commonStyles from './Styles/CommonStyles';
+import Color from './Styles/Color';
 import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
@@ -28,10 +28,13 @@ const TabNavigator = ({ }) => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        headerStyle: {
-          backgroundColor: 'purple',
+        tabBarStyle: {
+          backgroundColor: Color.tabBarBackGround,
         },
-        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: Color.headerBackGround,
+        },
+        headerTintColor: Color.headerText,
       })}
     >
       <Tab.Screen name="Activities" component={Activities} />
@@ -47,9 +50,9 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: 'purple',
+            backgroundColor: Color.headerBackGround,
           },
-          headerTintColor: 'white',
+          headerTintColor: Color.headerText,
         }}>
         <Stack.Screen
           name="Home"
