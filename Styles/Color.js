@@ -7,6 +7,7 @@ const Color = {
     buttonAfterPress: 'yellow',
     cancelButton: 'red',
     warning: '#daa520',
+    icon: 'white',
 }
 
 export default Color;
