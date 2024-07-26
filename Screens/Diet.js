@@ -14,7 +14,7 @@ const Diet = () => {
                 <RightHeaderIcon
                     navigation={navigation}
                     toScreen="AddDiet"
-                    secondIcon="fast-food"
+                    secondIcon="fast-food-outline"
                 />
             ),
         });

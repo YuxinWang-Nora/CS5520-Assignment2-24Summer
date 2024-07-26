@@ -22,7 +22,7 @@ const TabNavigator = ({ }) => {
           if (route.name === 'Activities') {
             iconName = 'bicycle';
           } else if (route.name === 'Diet') {
-            iconName = 'fast-food';
+            iconName = 'fast-food-outline';
           } else if (route.name === 'Settings') {
             iconName = 'settings';
           }
