@@ -14,10 +14,10 @@ const AddDiet = ({ route }) => {
     const navigation = useNavigation();
 
     const [description, setDescription] = useState(initialDiet ? initialDiet.description : '');
-    const [calories, setCalories] = useState(initialDiet ? initialDiet.calories.toString() : '');
-    const [date, setDate] = useState(initialDiet ? new Date(initialDiet.date) : new Date());
+    const [calories, setCalories] = useState(initialDiet && initialDiet.calories ? initialDiet.calories.toString() : '');
+    const [date, setDate] = useState(initialDiet && initialDiet.date ? new Date(initialDiet.date) : new Date());
 
-    const handleSave = async () => {
+    const handleSave = () => {
         if (!description || !calories || isNaN(calories) || parseInt(calories) <= 0) {
             Alert.alert("Invalid Input", "Please enter a valid description and calorie count.");
             return;
@@ -30,7 +30,7 @@ const AddDiet = ({ route }) => {
             isSpecial: parseInt(calories) > 800
         };
 
-        await writeToDB(dietData, 'Diet');
+        writeToDB(dietData, 'Diet');
         navigation.goBack();
     };
 
@@ -43,8 +43,8 @@ const AddDiet = ({ route }) => {
             { text: "No", style: "cancel" },
             {
                 text: "Yes",
-                onPress: async () => {
-                    await deleteFromDB(initialDiet.id, 'Diet');
+                onPress: () => {
+                    deleteFromDB(initialDiet.id, 'Diet');
                     navigation.goBack();
                 }
             }
@@ -57,9 +57,9 @@ const AddDiet = ({ route }) => {
             headerRight: () => initialDiet ? (
                 <Ionicons name="trash" size={23} color={Color.icon}
                     onPress={handleDelete} />
-            ) : undefined,
+            ) : null,
         });
-    }, [navigation, initialDiet]);
+    }, []);
 
     return (
         <View style={commonStyles.addContainer}>
