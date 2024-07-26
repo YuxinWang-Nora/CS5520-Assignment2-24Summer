@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
-import { writeToDB, deleteFromDB } from '../Firebase/firebaseHelper';
+import { writeToDB, deleteFromDB, updateDB } from '../Firebase/firebaseHelper';
 import commonStyles from '../Styles/CommonStyles';
 import TimeInput from '../Components/TimeInput';
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
@@ -15,7 +15,7 @@ const AddActivities = ({ route }) => {
 
     const [activityType, setActivityType] = useState(initialActivity ? initialActivity.type : '');
     const [duration, setDuration] = useState(initialActivity && initialActivity.duration ? initialActivity.duration.toString() : '');
-    const [date, setDate] = useState(initialActivity && initialActivity.data ? new Date(initialActivity.date) : null);
+    const [date, setDate] = useState(initialActivity && initialActivity.date ? new Date(initialActivity.date) : null);
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { label: 'Walking', value: 'Walking' },
@@ -40,8 +40,23 @@ const AddActivities = ({ route }) => {
             isSpecial: (activityType === 'Running' || activityType === 'Weights') && parseInt(duration) > 60
         };
 
-        writeToDB(activityData, 'Activities');
-        navigation.goBack();
+        // writeToDB(activityData, 'Activities');
+        // navigation.goBack();
+        if (initialActivity) {
+            Alert.alert("Important", "Are you sure you want to save these changes?", [
+                { text: 'No', style: 'cancel' },
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        updateDB(initialActivity.id, 'Activities', activityData);
+                        navigation.goBack();
+                    },
+                },
+            ]);
+        } else {
+            writeToDB(activityData, 'Activities');
+            navigation.goBack();
+        }
     };
 
     const handleCancel = () => {
@@ -61,7 +76,7 @@ const AddActivities = ({ route }) => {
             headerRight: () => initialActivity ? (
                 <Ionicons name='trash' size={24} color={Color.icon} onPress={handelDelete} />) : null,
         });
-    }, []);
+    }, [navigation, initialActivity]);
 
     return (
         <View style={commonStyles.addContainer}>

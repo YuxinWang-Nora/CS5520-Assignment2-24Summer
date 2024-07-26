@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
 import TimeInput from '../Components/TimeInput';
 import commonStyles from '../Styles/CommonStyles';
-import { deleteFromDB } from '../Firebase/firebaseHelper';
+import { deleteFromDB, updateDB } from '../Firebase/firebaseHelper';
 import Color from '../Styles/Color';
 
 const AddDiet = ({ route }) => {
@@ -30,8 +30,21 @@ const AddDiet = ({ route }) => {
             isSpecial: parseInt(calories) > 800
         };
 
-        writeToDB(dietData, 'Diet');
-        navigation.goBack();
+        if (initialDiet) {
+            Alert.alert("Important", "Are you sure you want to save these changes?", [
+                { text: "No", style: "cancel" },
+                {
+                    text: "Yes",
+                    onPress: () => {
+                        updateDB(initialDiet.id, 'Diet', dietData);
+                        navigation.goBack();
+                    }
+                }
+            ]);
+        } else {
+            writeToDB(dietData, 'Diet');
+            navigation.goBack();
+        }
     };
 
     const handleCancel = () => {
@@ -59,7 +72,7 @@ const AddDiet = ({ route }) => {
                     onPress={handleDelete} />
             ) : null,
         });
-    }, []);
+    }, [navigation, initialDiet]);
 
     return (
         <View style={commonStyles.addContainer}>
