@@ -15,11 +15,11 @@ const AddDiet = ({ route }) => {
 
     const [description, setDescription] = useState(initialDiet ? initialDiet.description : '');
     const [calories, setCalories] = useState(initialDiet && initialDiet.calories ? initialDiet.calories.toString() : '');
-    const [date, setDate] = useState(initialDiet && initialDiet.date ? new Date(initialDiet.date) : new Date());
+    const [date, setDate] = useState(initialDiet && initialDiet.date ? new Date(initialDiet.date) : null);
 
     const handleSave = () => {
-        if (!description || !calories || isNaN(calories) || parseInt(calories) <= 0) {
-            Alert.alert("Invalid Input", "Please enter a valid description and calorie count.");
+        if (!description || !calories || isNaN(calories) || parseInt(calories) <= 0 || !date) {
+            Alert.alert("Invalid Input", "Please check you input values.");
             return;
         }
 

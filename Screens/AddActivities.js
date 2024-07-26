@@ -15,7 +15,7 @@ const AddActivities = ({ route }) => {
 
     const [activityType, setActivityType] = useState(initialActivity ? initialActivity.type : '');
     const [duration, setDuration] = useState(initialActivity && initialActivity.duration ? initialActivity.duration.toString() : '');
-    const [date, setDate] = useState(initialActivity && initialActivity.data ? new Date(initialActivity.date) : new Date());
+    const [date, setDate] = useState(initialActivity && initialActivity.data ? new Date(initialActivity.date) : null);
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { label: 'Walking', value: 'Walking' },
@@ -28,8 +28,8 @@ const AddActivities = ({ route }) => {
     ]);
 
     const handleSave = () => {
-        if (!activityType || !duration || isNaN(duration) || parseInt(duration) <= 0) {
-            Alert.alert("Invalid Input", "Please enter valid activity type and duration.");
+        if (!activityType || !duration || isNaN(duration) || parseInt(duration) <= 0 || !date) {
+            Alert.alert("Invalid Input", "Please check your input values.");
             return;
         }
 
