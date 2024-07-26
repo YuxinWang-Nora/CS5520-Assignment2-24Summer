@@ -1,9 +1,9 @@
 import { addDoc, collection } from "firebase/firestore";
 import { database } from "./firebaseSetup";
 
-export async function writeToDB(goal, collectionName) {
+export async function writeToDB(data, collectionName) {
     try {
-        await addDoc(collection(database, collectionName), goal);
+        await addDoc(collection(database, collectionName), data);
     }
     catch (err) {
         console.log(err)
