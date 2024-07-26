@@ -89,6 +89,18 @@ export const commonStyles = StyleSheet.create({
         fontSize: 14,
         fontbold: 'bold',
     },
+    checkboxContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 10,
+    },
+    checkboxText: {
+        fontSize: 15,
+        color: Color.theme,
+    },
+    checkbox: {
+        marginLeft: 5,
+    },
 });
 
 export default commonStyles;
