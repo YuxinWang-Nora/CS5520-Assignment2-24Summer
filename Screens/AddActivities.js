@@ -14,8 +14,8 @@ const AddActivities = ({ route }) => {
     const navigation = useNavigation();
 
     const [activityType, setActivityType] = useState(initialActivity ? initialActivity.type : '');
-    const [duration, setDuration] = useState(initialActivity ? initialActivity.duration.toString() : '');
-    const [date, setDate] = useState(initialActivity ? new Date(initialActivity.date) : new Date());
+    const [duration, setDuration] = useState(initialActivity && initialActivity.duration ? initialActivity.duration.toString() : '');
+    const [date, setDate] = useState(initialActivity && initialActivity.data ? new Date(initialActivity.date) : new Date());
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { label: 'Walking', value: 'Walking' },
@@ -27,7 +27,7 @@ const AddActivities = ({ route }) => {
         { label: 'Hiking', value: 'Hiking' },
     ]);
 
-    const handleSave = async () => {
+    const handleSave = () => {
         if (!activityType || !duration || isNaN(duration) || parseInt(duration) <= 0) {
             Alert.alert("Invalid Input", "Please enter valid activity type and duration.");
             return;
@@ -40,13 +40,28 @@ const AddActivities = ({ route }) => {
             isSpecial: (activityType === 'Running' || activityType === 'Weights') && parseInt(duration) > 60
         };
 
-        await writeToDB(activityData, 'Activities');
+        writeToDB(activityData, 'Activities');
         navigation.goBack();
     };
 
     const handleCancel = () => {
         navigation.goBack();
     };
+
+    const handelDelete = async () => {
+        Alert.alert("Delete", "Are you sure you want to delete this item?", [
+            { text: 'No', style: 'cancel' },
+            { text: 'Yes', onPress: () => { deleteFromDB(initialActivity.id, 'Activities'); navigation.goBack(); } },
+        ]);
+    };
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: initialActivity ? 'Edit' : 'Add An Activity',
+            headerRight: () => initialActivity ? (
+                <Ionicons name='trash' size={24} color={Color.icon} onPress={handelDelete} />) : null,
+        });
+    }, []);
 
     return (
         <View style={commonStyles.addContainer}>
