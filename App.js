@@ -29,10 +29,10 @@ const TabNavigator = () => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarStyle: {
-          backgroundColor: Color.tabBarBackGround,
+          backgroundColor: Color.theme,
         },
         headerStyle: {
-          backgroundColor: Color.headerBackGround,
+          backgroundColor: Color.theme,
         },
         headerTintColor: Color.headerText,
       })}
@@ -50,7 +50,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: Color.headerBackGround,
+            backgroundColor: Color.theme,
           },
           headerTintColor: Color.headerText,
         }}>

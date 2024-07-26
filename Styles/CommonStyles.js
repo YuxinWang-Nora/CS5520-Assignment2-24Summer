@@ -4,7 +4,7 @@ import Color from "./Color";
 export const commonStyles = StyleSheet.create({
     defaultScreen: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Color.background,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -16,12 +16,6 @@ export const commonStyles = StyleSheet.create({
     cancelButton: {
         backgroundColor: Color.cancelButton,
     },
-    // screenHeader: {
-    //     headerStyle: {
-    //         backgroundColor: 'purple',
-    //     },
-    //     headerTintColor: 'white',
-    // }
     input: {
         fontSize: 18,
         borderWidth: 1.5,
@@ -41,7 +35,7 @@ export const commonStyles = StyleSheet.create({
     },
     dropDown: {
         marginBottom: 15,
-        backgroundColor: '#fafafa',
+        backgroundColor: Color.background,
         borderColor: Color.theme,
         borderWidth: 1.5,
         borderRadius: 10,
@@ -70,14 +64,14 @@ export const commonStyles = StyleSheet.create({
         padding: 20,
     },
     cardTitle: {
-        color: 'white',
+        color: Color.titleText,
         fontSize: 16,
         flex: 1,
         marginLeft: 3,
     },
     cardInfoContainer: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: Color.cardInfoBackground,
         borderRadius: 5,
         paddingHorizontal: 5,
         paddingVertical: 3,
@@ -101,6 +95,21 @@ export const commonStyles = StyleSheet.create({
     checkbox: {
         marginLeft: 5,
     },
+    defaultButton: {
+        backgroundColor: Color.buttonBeforePress,
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        width: '25%',
+    },
+    pressedButton: {
+        backgroundColor: Color.buttonAfterPress,
+        opacity: 0.25
+    },
+    ButtonText: {
+        color: Color.titleText,
+        fontSize: 16
+    }
 });
 
 export default commonStyles;
