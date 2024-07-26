@@ -11,8 +11,14 @@ const TimeInput = ({ date, dateSetter }) => {
             <Text style={commonStyles.label}>Date *</Text>
             <TextInput
                 style={commonStyles.input}
-                value={date.toDateString()}
-                onPressIn={() => setShowDatePicker(true)}
+                value={date ? date.toDateString() : ''}
+                onPressIn={
+                    () => {
+                        setShowDatePicker(!showDatePicker);
+                        if (!date) {
+                            dateSetter(new Date());
+                        }
+                    }}
                 editable={false}
             />
             {showDatePicker && (
