@@ -51,6 +51,44 @@ export const commonStyles = StyleSheet.create({
         padding: 20,
         justifyContent: 'top',
     },
+    card: {
+        backgroundColor: Color.theme,
+        padding: 12,
+        marginVertical: 5,
+        borderRadius: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    cardContainer: {
+        justifyContent: 'top',
+        padding: 20,
+    },
+    cardTitle: {
+        color: 'white',
+        fontSize: 16,
+        flex: 1,
+        marginLeft: 3,
+    },
+    cardInfoContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 3,
+        marginLeft: 5,
+
+    },
+    cardInforText: {
+        color: Color.theme,
+        fontSize: 14,
+        fontbold: 'bold',
+    },
 });
 
 export default commonStyles;
