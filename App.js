@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const TabNavigator = ({ }) => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

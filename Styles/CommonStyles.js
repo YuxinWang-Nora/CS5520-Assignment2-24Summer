@@ -54,7 +54,7 @@ export const commonStyles = StyleSheet.create({
     card: {
         backgroundColor: Color.theme,
         padding: 12,
-        marginVertical: 5,
+        marginVertical: 5.3,
         borderRadius: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
