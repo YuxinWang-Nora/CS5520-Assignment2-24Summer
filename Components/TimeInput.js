@@ -8,7 +8,7 @@ const TimeInput = ({ date, dateSetter }) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     return (
         <View>
-            <Text style={commonStyles.label}>Date</Text>
+            <Text style={commonStyles.label}>Date *</Text>
             <TextInput
                 style={commonStyles.input}
                 value={date.toDateString()}

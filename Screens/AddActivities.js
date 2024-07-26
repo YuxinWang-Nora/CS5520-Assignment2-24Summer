@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
-import PressableButton from '../Components/PressableButton';
 import { writeToDB } from '../Firebase/firebaseHelper';
 import commonStyles from '../Styles/CommonStyles';
 import TimeInput from '../Components/TimeInput';
+import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
 
 const AddActivities = () => {
     const [activityType, setActivityType] = useState(null);
@@ -46,7 +46,7 @@ const AddActivities = () => {
 
     return (
         <View style={commonStyles.addContainer}>
-            <Text style={commonStyles.label}>Activity Type</Text>
+            <Text style={commonStyles.label}>Activity Type *</Text>
             <DropDownPicker
                 open={open}
                 value={activityType}
@@ -54,11 +54,11 @@ const AddActivities = () => {
                 setOpen={setOpen}
                 setValue={setActivityType}
                 setItems={setItems}
-                placeholder="Select an activity"
+                placeholder="Select An Activity"
                 style={commonStyles.dropDown}
             />
 
-            <Text style={commonStyles.label}>Duration (min)</Text>
+            <Text style={commonStyles.label}>Duration (min) *</Text>
             <TextInput
                 style={commonStyles.input}
                 keyboardType="numeric"
@@ -69,13 +69,7 @@ const AddActivities = () => {
 
             <TimeInput date={date} dateSetter={setDate} />
 
-            <View style={commonStyles.buttonContainer}>
-                <PressableButton
-                    title="Cancel"
-                    onPress={handleCancel}
-                    style={commonStyles.cancelButton} />
-                <PressableButton title="Save" onPress={handleSave} />
-            </View>
+            <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
         </View>
     );
 };
