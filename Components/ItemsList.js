@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { database } from '../Firebase/firebaseSetup';
 import ItemCard from './ItemCard';
@@ -7,6 +8,7 @@ import commonStyles from '../Styles/CommonStyles';
 
 const ItemsList = ({ collectionName }) => {
     const [items, setItems] = useState([]);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const unsubscribe = onSnapshot(collection(database, collectionName), (snapshot) => {
@@ -21,12 +23,17 @@ const ItemsList = ({ collectionName }) => {
     const renderItem = ({ item }) => {
         const formattedDate = new Date(item.date).toDateString();
         return (
-            <ItemCard
-                content={item.description || item.type}
-                isWarning={item.isSpecial}
-                date={formattedDate}
-                shortMeasure={item.calories ? `${item.calories} cal` : `${item.duration} min`}
-            />);
+            <Pressable
+                onPress={() => navigation.navigate(`Add${collectionName}`, { data: item })}
+            >
+                <ItemCard
+                    content={item.description || item.type}
+                    isWarning={item.isSpecial}
+                    date={formattedDate}
+                    shortMeasure={item.calories ? `${item.calories} cal` : `${item.duration} min`}
+                />
+            </Pressable>
+        );
     };
 
     return (
