@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import RightHeaderIcon from '../Components/RightHeaderAddIcon';
+import ItemsList from '../Components/ItemsList';
 
 const Activities = () => {
     const navigation = useNavigation();
@@ -21,7 +22,7 @@ const Activities = () => {
 
     return (
         <View>
-            <Text>Activities Screen</Text>
+            <ItemsList collectionName="Activities" />
         </View>
     );
 };

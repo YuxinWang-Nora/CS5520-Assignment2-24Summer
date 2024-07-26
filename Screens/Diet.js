@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import RightHeaderIcon from '../Components/RightHeaderAddIcon';
+import ItemsList from '../Components/ItemsList';
 
 const Diet = () => {
     const navigation = useNavigation();
@@ -21,7 +22,7 @@ const Diet = () => {
 
     return (
         <View>
-            <Text>Diet Screen</Text>
+            <ItemsList collectionName="Diet" />
         </View>
     );
 };
