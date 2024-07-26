@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
-import { writeToDB } from '../Firebase/firebaseHelper';
+import { writeToDB, deleteFromDB } from '../Firebase/firebaseHelper';
 import commonStyles from '../Styles/CommonStyles';
 import TimeInput from '../Components/TimeInput';
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
+import { Ionicons } from '@expo/vector-icons';
+import Color from '../Styles/Color';
 
-const AddActivities = () => {
-    const [activityType, setActivityType] = useState(null);
-    const [duration, setDuration] = useState('');
-    const [date, setDate] = useState(new Date());
+const AddActivities = ({ route }) => {
+    const initialActivity = route.params ? route.params.data : null;
+    const navigation = useNavigation();
+
+    const [activityType, setActivityType] = useState(initialActivity ? initialActivity.type : '');
+    const [duration, setDuration] = useState(initialActivity ? initialActivity.duration.toString() : '');
+    const [date, setDate] = useState(initialActivity ? new Date(initialActivity.date) : new Date());
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { label: 'Walking', value: 'Walking' },
@@ -22,7 +27,6 @@ const AddActivities = () => {
         { label: 'Hiking', value: 'Hiking' },
     ]);
 
-    const navigation = useNavigation();
     const handleSave = async () => {
         if (!activityType || !duration || isNaN(duration) || parseInt(duration) <= 0) {
             Alert.alert("Invalid Input", "Please enter valid activity type and duration.");
