@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 import PressableButton from '../Components/PressableButton';
 import { writeToDB } from '../Firebase/firebaseHelper';
 import commonStyles from '../Styles/CommonStyles';
+import TimeInput from '../Components/TimeInput';
 
 const AddActivities = () => {
     const [activityType, setActivityType] = useState(null);
     const [duration, setDuration] = useState('');
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
-    const [showDatePicker, setShowDatePicker] = useState(false);
     const [items, setItems] = useState([
         { label: 'Walking', value: 'Walking' },
         { label: 'Running', value: 'Running' },
@@ -46,8 +45,8 @@ const AddActivities = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Activity Type</Text>
+        <View style={commonStyles.addContainer}>
+            <Text style={commonStyles.label}>Activity Type</Text>
             <DropDownPicker
                 open={open}
                 value={activityType}
@@ -56,40 +55,21 @@ const AddActivities = () => {
                 setValue={setActivityType}
                 setItems={setItems}
                 placeholder="Select an activity"
-                style={styles.dropDown}
+                style={commonStyles.dropDown}
             />
 
-            <Text style={styles.label}>Duration (min)</Text>
+            <Text style={commonStyles.label}>Duration (min)</Text>
             <TextInput
-                style={styles.input}
+                style={commonStyles.input}
                 keyboardType="numeric"
                 value={duration}
                 onChangeText={setDuration}
                 placeholder="Enter duration in minutes"
             />
 
-            <Text style={styles.label}>Date</Text>
-            <TextInput
-                style={styles.input}
-                value={date.toDateString()}
-                onPressIn={() => setShowDatePicker(true)}
-                editable={false}
-            />
+            <TimeInput date={date} dateSetter={setDate} />
 
-            {showDatePicker && (
-                <DateTimePicker
-                    value={date}
-                    mode="date"
-                    display="inline"
-                    onChange={(event, selectedDate) => {
-                        const currentDate = selectedDate || date;
-                        setShowDatePicker(false);
-                        setDate(currentDate);
-                    }}
-                />
-            )}
-
-            <View style={styles.buttonContainer}>
+            <View style={commonStyles.buttonContainer}>
                 <PressableButton
                     title="Cancel"
                     onPress={handleCancel}
@@ -99,33 +79,5 @@ const AddActivities = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        justifyContent: 'top',
-    },
-    label: {
-        fontSize: 18,
-        marginBottom: 5,
-    },
-    input: {
-        fontSize: 16,
-        borderWidth: 1,
-        padding: 10,
-        marginBottom: 15,
-        borderRadius: 10,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 20,
-    },
-    dropDown: {
-        marginBottom: 15,
-        backgroundColor: '#fafafa',
-    },
-});
 
 export default AddActivities;
