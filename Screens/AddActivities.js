@@ -6,6 +6,7 @@ import { writeToDB, deleteFromDB, updateDB } from '../Firebase/firebaseHelper';
 import commonStyles from '../Styles/CommonStyles';
 import TimeInput from '../Components/TimeInput';
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
+import SpecialCheckbox from '../Components/SpecialCheckbox';
 import { Ionicons } from '@expo/vector-icons';
 import Color from '../Styles/Color';
 
@@ -26,6 +27,7 @@ const AddActivities = ({ route }) => {
         { label: 'Cycling', value: 'Cycling' },
         { label: 'Hiking', value: 'Hiking' },
     ]);
+    const [isSpecialChecked, setIsSpecialChecked] = useState(false);
 
     const handleSave = () => {
         if (!activityType || !duration || isNaN(duration) || parseInt(duration) <= 0 || !date) {
@@ -40,14 +42,15 @@ const AddActivities = ({ route }) => {
             isSpecial: (activityType === 'Running' || activityType === 'Weights') && parseInt(duration) > 60
         };
 
-        // writeToDB(activityData, 'Activities');
-        // navigation.goBack();
         if (initialActivity) {
             Alert.alert("Important", "Are you sure you want to save these changes?", [
                 { text: 'No', style: 'cancel' },
                 {
                     text: 'Yes',
                     onPress: () => {
+                        if (initialActivity.isSpecial && isSpecialChecked) {
+                            activityData.isSpecial = false;
+                        }
                         updateDB(initialActivity.id, 'Activities', activityData);
                         navigation.goBack();
                     },
@@ -102,6 +105,9 @@ const AddActivities = ({ route }) => {
             />
 
             <TimeInput date={date} dateSetter={setDate} />
+            {initialActivity && initialActivity.isSpecial && (
+                <SpecialCheckbox isSpecialChecked={isSpecialChecked} setIsSpecialChecked={setIsSpecialChecked} />
+            )}
 
             <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
         </View>

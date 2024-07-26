@@ -5,6 +5,7 @@ import { writeToDB } from '../Firebase/firebaseHelper';
 import { Ionicons } from '@expo/vector-icons';
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
 import TimeInput from '../Components/TimeInput';
+import SpecialCheckbox from '../Components/SpecialCheckbox';
 import commonStyles from '../Styles/CommonStyles';
 import { deleteFromDB, updateDB } from '../Firebase/firebaseHelper';
 import Color from '../Styles/Color';
@@ -16,6 +17,8 @@ const AddDiet = ({ route }) => {
     const [description, setDescription] = useState(initialDiet ? initialDiet.description : '');
     const [calories, setCalories] = useState(initialDiet && initialDiet.calories ? initialDiet.calories.toString() : '');
     const [date, setDate] = useState(initialDiet && initialDiet.date ? new Date(initialDiet.date) : null);
+
+    const [isSpecialChecked, setIsSpecialChecked] = useState(false);
 
     const handleSave = () => {
         if (!description || !calories || isNaN(calories) || parseInt(calories) <= 0 || !date) {
@@ -36,6 +39,9 @@ const AddDiet = ({ route }) => {
                 {
                     text: "Yes",
                     onPress: () => {
+                        if (initialDiet.isSpecial && isSpecialChecked) {
+                            dietData.isSpecial = false;
+                        }
                         updateDB(initialDiet.id, 'Diet', dietData);
                         navigation.goBack();
                     }
@@ -94,6 +100,12 @@ const AddDiet = ({ route }) => {
             />
 
             <TimeInput date={date} dateSetter={setDate} />
+            {initialDiet && initialDiet.isSpecial && (
+                <SpecialCheckbox
+                    isSpecialChecked={isSpecialChecked}
+                    setIsSpecialChecked={setIsSpecialChecked}
+                />
+            )}
             <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
         </View>
     );
