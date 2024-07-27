@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { commonStyles } from '../Styles/CommonStyles';
 import { ThemeContext } from '../Context/ThemeContext';
@@ -26,13 +26,12 @@ const TimeInput = ({ date, dateSetter }) => {
                             dateSetter(new Date());
                         }
                     }}
-                editable={false}
             />
             {showDatePicker && (
                 <DateTimePicker
                     value={date}
                     mode="date"
-                    display="inline"
+                    display={Platform.OS === 'ios' ? 'inline' : 'default'}
                     onChange={(event, selectedDate) => {
                         const currentDate = selectedDate || date;
                         setShowDatePicker(false);
