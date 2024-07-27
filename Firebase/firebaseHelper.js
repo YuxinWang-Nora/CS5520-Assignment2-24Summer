@@ -4,6 +4,7 @@ import { database } from "./firebaseSetup";
 export async function writeToDB(data, collectionName) {
     try {
         await addDoc(collection(database, collectionName), data);
+        console.log(collectionName, data, "successfully written to DB!");
     }
     catch (err) {
         console.log(err)
@@ -23,6 +24,7 @@ export async function deleteFromDB(id, collectionName) {
 export async function updateDB(id, collectionName, updatedData) {
     try {
         await updateDoc(doc(database, collectionName, id), updatedData);
+        console.log(collectionName, id, "successfully updated as", updatedData);
     }
     catch (err) {
         console.log(err)
