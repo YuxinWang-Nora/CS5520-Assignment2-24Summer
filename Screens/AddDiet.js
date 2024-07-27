@@ -1,8 +1,9 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useContext } from 'react';
 import { View, Text, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { writeToDB } from '../Firebase/firebaseHelper';
 import { Ionicons } from '@expo/vector-icons';
+import { ThemeContext } from "../Context/ThemeContext";
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
 import TimeInput from '../Components/TimeInput';
 import SpecialCheckbox from '../Components/SpecialCheckbox';
@@ -13,6 +14,7 @@ import Color from '../Styles/Color';
 const AddDiet = ({ route }) => {
     const initialDiet = route.params ? route.params.data : null;
     const navigation = useNavigation();
+    const { isDarkTheme } = useContext(ThemeContext);
 
     const [description, setDescription] = useState(initialDiet ? initialDiet.description : '');
     const [calories, setCalories] = useState(initialDiet && initialDiet.calories ? initialDiet.calories.toString() : '');
@@ -81,32 +83,34 @@ const AddDiet = ({ route }) => {
     }, [navigation, initialDiet]);
 
     return (
-        <View style={commonStyles.addContainer}>
-            <Text style={commonStyles.label}>Description *</Text>
-            <TextInput
-                style={commonStyles.input}
-                value={description}
-                onChangeText={setDescription}
-                placeholder="Enter food description"
-            />
-
-            <Text style={commonStyles.label}>Calories *</Text>
-            <TextInput
-                style={commonStyles.input}
-                keyboardType="numeric"
-                value={calories}
-                onChangeText={setCalories}
-                placeholder="Enter calorie count"
-            />
-
-            <TimeInput date={date} dateSetter={setDate} />
-            {initialDiet && initialDiet.isSpecial && (
-                <SpecialCheckbox
-                    isSpecialChecked={isSpecialChecked}
-                    setIsSpecialChecked={setIsSpecialChecked}
+        <View style={isDarkTheme ? commonStyles.darkScreen : commonStyles.defaultScreen}>
+            <View style={commonStyles.addContainer}>
+                <Text style={commonStyles.label}>Description *</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    value={description}
+                    onChangeText={setDescription}
+                    placeholder="Enter food description"
                 />
-            )}
-            <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
+
+                <Text style={commonStyles.label}>Calories *</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    keyboardType="numeric"
+                    value={calories}
+                    onChangeText={setCalories}
+                    placeholder="Enter calorie count"
+                />
+
+                <TimeInput date={date} dateSetter={setDate} />
+                {initialDiet && initialDiet.isSpecial && (
+                    <SpecialCheckbox
+                        isSpecialChecked={isSpecialChecked}
+                        setIsSpecialChecked={setIsSpecialChecked}
+                    />
+                )}
+                <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
+            </View>
         </View>
     );
 };

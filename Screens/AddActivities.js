@@ -1,8 +1,9 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 import { writeToDB, deleteFromDB, updateDB } from '../Firebase/firebaseHelper';
+import { ThemeContext } from "../Context/ThemeContext";
 import commonStyles from '../Styles/CommonStyles';
 import TimeInput from '../Components/TimeInput';
 import CancelAndSaveButtons from '../Components/CancelAndSaveButtons';
@@ -13,6 +14,7 @@ import Color from '../Styles/Color';
 const AddActivities = ({ route }) => {
     const initialActivity = route.params ? route.params.data : null;
     const navigation = useNavigation();
+    const { isDarkTheme } = useContext(ThemeContext);
 
     const [activityType, setActivityType] = useState(initialActivity ? initialActivity.type : '');
     const [duration, setDuration] = useState(initialActivity && initialActivity.duration ? initialActivity.duration.toString() : '');
@@ -82,34 +84,36 @@ const AddActivities = ({ route }) => {
     }, [navigation, initialActivity]);
 
     return (
-        <View style={commonStyles.addContainer}>
-            <Text style={commonStyles.label}>Activity Type *</Text>
-            <DropDownPicker
-                open={open}
-                value={activityType}
-                items={items}
-                setOpen={setOpen}
-                setValue={setActivityType}
-                setItems={setItems}
-                placeholder="Select An Activity"
-                style={commonStyles.dropDown}
-            />
+        <View style={isDarkTheme ? commonStyles.darkScreen : commonStyles.defaultScreen}>
+            <View style={commonStyles.addContainer}>
+                <Text style={commonStyles.label}>Activity Type *</Text>
+                <DropDownPicker
+                    open={open}
+                    value={activityType}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setActivityType}
+                    setItems={setItems}
+                    placeholder="Select An Activity"
+                    style={commonStyles.dropDown}
+                />
 
-            <Text style={commonStyles.label}>Duration (min) *</Text>
-            <TextInput
-                style={commonStyles.input}
-                keyboardType="numeric"
-                value={duration}
-                onChangeText={setDuration}
-                placeholder="Enter duration in minutes"
-            />
+                <Text style={commonStyles.label}>Duration (min) *</Text>
+                <TextInput
+                    style={commonStyles.input}
+                    keyboardType="numeric"
+                    value={duration}
+                    onChangeText={setDuration}
+                    placeholder="Enter duration in minutes"
+                />
 
-            <TimeInput date={date} dateSetter={setDate} />
-            {initialActivity && initialActivity.isSpecial && (
-                <SpecialCheckbox isSpecialChecked={isSpecialChecked} setIsSpecialChecked={setIsSpecialChecked} />
-            )}
+                <TimeInput date={date} dateSetter={setDate} />
+                {initialActivity && initialActivity.isSpecial && (
+                    <SpecialCheckbox isSpecialChecked={isSpecialChecked} setIsSpecialChecked={setIsSpecialChecked} />
+                )}
 
-            <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
+                <CancelAndSaveButtons handleCancel={handleCancel} handleSave={handleSave} />
+            </View>
         </View>
     );
 };

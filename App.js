@@ -9,6 +9,7 @@ import AddActivities from './Screens/AddActivities';
 import AddDiet from './Screens/AddDiet';
 import Color from './Styles/Color';
 import { Ionicons } from '@expo/vector-icons';
+import { ThemeProvider } from './Context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,28 +47,30 @@ const TabNavigator = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: Color.theme,
-          },
-          headerTintColor: Color.headerText,
-        }}>
-        <Stack.Screen
-          name="Home"
-          component={TabNavigator}
-          options={{ headerShown: false, title: '' }} />
-        <Stack.Screen
-          name="AddActivities"
-          component={AddActivities}
-          options={{ title: 'Add An Activitie' }} />
-        <Stack.Screen
-          name="AddDiet"
-          component={AddDiet}
-          options={{ title: 'Add A Diet Entry' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: Color.theme,
+            },
+            headerTintColor: Color.headerText,
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={TabNavigator}
+            options={{ headerShown: false, title: '' }} />
+          <Stack.Screen
+            name="AddActivities"
+            component={AddActivities}
+            options={{ title: 'Add An Activitie' }} />
+          <Stack.Screen
+            name="AddDiet"
+            component={AddDiet}
+            options={{ title: 'Add A Diet Entry' }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 

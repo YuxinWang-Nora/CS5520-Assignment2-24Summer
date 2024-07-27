@@ -1,10 +1,15 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useContext } from "react";
+import { View } from "react-native";
+import { ThemeContext } from "../Context/ThemeContext";
+import PressableButton from "../Components/PressableButton";
+import commonStyles from "../Styles/CommonStyles";
 
 const Settings = () => {
+    const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+
     return (
-        <View>
-            <Text>Settings Screen</Text>
+        <View style={[commonStyles.singleButtonContainer, isDarkTheme ? commonStyles.darkScreen : commonStyles.defaultScreen]}>
+            <PressableButton title="Toggle Theme" onPress={toggleTheme} />
         </View>
     );
 }

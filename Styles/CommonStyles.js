@@ -5,8 +5,10 @@ export const commonStyles = StyleSheet.create({
     defaultScreen: {
         flex: 1,
         backgroundColor: Color.background,
-        alignItems: 'center',
-        justifyContent: 'center',
+    },
+    darkScreen: {
+        flex: 1,
+        backgroundColor: Color.darkBackground,
     },
     rightHeaderIcon: {
         justifyContent: 'space-between',
@@ -109,7 +111,11 @@ export const commonStyles = StyleSheet.create({
     ButtonText: {
         color: Color.titleText,
         fontSize: 16
-    }
+    },
+    singleButtonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export default commonStyles;
