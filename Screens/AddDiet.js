@@ -85,7 +85,9 @@ const AddDiet = ({ route }) => {
     return (
         <View style={isDarkTheme ? commonStyles.darkScreen : commonStyles.defaultScreen}>
             <View style={commonStyles.addContainer}>
-                <Text style={commonStyles.label}>Description *</Text>
+                <Text style={isDarkTheme ? commonStyles.labelDark : commonStyles.label}>
+                    Description *
+                </Text>
                 <TextInput
                     style={commonStyles.input}
                     value={description}
@@ -93,7 +95,9 @@ const AddDiet = ({ route }) => {
                     placeholder="Enter food description"
                 />
 
-                <Text style={commonStyles.label}>Calories *</Text>
+                <Text style={isDarkTheme ? commonStyles.labelDark : commonStyles.label}>
+                    Calories
+                    *</Text>
                 <TextInput
                     style={commonStyles.input}
                     keyboardType="numeric"

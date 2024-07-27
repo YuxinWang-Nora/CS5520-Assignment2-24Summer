@@ -86,7 +86,7 @@ const AddActivities = ({ route }) => {
     return (
         <View style={isDarkTheme ? commonStyles.darkScreen : commonStyles.defaultScreen}>
             <View style={commonStyles.addContainer}>
-                <Text style={commonStyles.label}>Activity Type *</Text>
+                <Text style={isDarkTheme ? commonStyles.labelDark : commonStyles.label}>Activity Type *</Text>
                 <DropDownPicker
                     open={open}
                     value={activityType}
@@ -95,10 +95,10 @@ const AddActivities = ({ route }) => {
                     setValue={setActivityType}
                     setItems={setItems}
                     placeholder="Select An Activity"
-                    style={commonStyles.dropDown}
+                    style={isDarkTheme ? commonStyles.dropDownDark : commonStyles.dropDown}
                 />
 
-                <Text style={commonStyles.label}>Duration (min) *</Text>
+                <Text style={isDarkTheme ? commonStyles.labelDark : commonStyles.label}>Duration (min) *</Text>
                 <TextInput
                     style={commonStyles.input}
                     keyboardType="numeric"

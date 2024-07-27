@@ -30,6 +30,11 @@ export const commonStyles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
     },
+    labelDark: {
+        fontSize: 16,
+        marginBottom: 5,
+        color: Color.titleText,
+    },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -38,6 +43,13 @@ export const commonStyles = StyleSheet.create({
     dropDown: {
         marginBottom: 15,
         backgroundColor: Color.background,
+        borderColor: Color.theme,
+        borderWidth: 1.5,
+        borderRadius: 10,
+    },
+    dropDownDark: {
+        marginBottom: 15,
+        backgroundColor: Color.darkBackground,
         borderColor: Color.theme,
         borderWidth: 1.5,
         borderRadius: 10,

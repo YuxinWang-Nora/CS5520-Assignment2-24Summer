@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { commonStyles } from '../Styles/CommonStyles';
+import { ThemeContext } from '../Context/ThemeContext';
 
 
 const TimeInput = ({ date, dateSetter }) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const { isDarkTheme } = useContext(ThemeContext);
     return (
         <View>
-            <Text style={commonStyles.label}>Date *</Text>
+            <Text style={isDarkTheme ? commonStyles.labelDark : commonStyles.label}>Date *</Text>
             <TextInput
                 style={commonStyles.input}
                 value={date ? date.toDateString() : ''}
