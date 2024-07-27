@@ -61,17 +61,20 @@ export const commonStyles = StyleSheet.create({
     },
     card: {
         backgroundColor: Color.theme,
-        padding: 12,
-        marginVertical: 5.3,
+        padding: 15,
+        marginVertical: 5.5,
         borderRadius: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowRadius: 2,
+        elevation: 3,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    pressedCard: {
+        opacity: 0.5
     },
     cardContainer: {
         justifyContent: 'top',
@@ -88,13 +91,12 @@ export const commonStyles = StyleSheet.create({
         backgroundColor: Color.cardInfoBackground,
         borderRadius: 5,
         paddingHorizontal: 5,
-        paddingVertical: 3,
+        paddingVertical: 5,
         marginLeft: 5,
-
     },
     cardInforText: {
         color: Color.theme,
-        fontSize: 14,
+        fontSize: 15,
         fontbold: 'bold',
     },
     checkboxContainer: {
@@ -107,7 +109,7 @@ export const commonStyles = StyleSheet.create({
         color: Color.theme,
     },
     checkbox: {
-        marginLeft: 5,
+        marginRight: 5,
     },
     defaultButton: {
         backgroundColor: Color.buttonBeforePress,

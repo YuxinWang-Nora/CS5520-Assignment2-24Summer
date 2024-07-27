@@ -30,6 +30,10 @@ const ItemsList = ({ collectionName }) => {
         return (
             <Pressable
                 onPress={() => navigation.navigate(`Add${collectionName}`, { data: item })}
+                style={({ pressed }) => [
+                    pressed && commonStyles.pressedCard,
+                ]
+                }
             >
                 <ItemCard
                     content={item.description || item.type}
