@@ -6,6 +6,11 @@ import { database } from '../Firebase/firebaseSetup';
 import ItemCard from './ItemCard';
 import commonStyles from '../Styles/CommonStyles';
 
+// This is a reusable component that displays a list of items.
+// It takes one prop:
+// collectionName: the name of the collection in the Firestore database
+// The component fetches the data from the specified collection and displays it in a list.
+// Each item in the list is a Pressable component that navigates to the Add{collectionName} screen.
 const ItemsList = ({ collectionName }) => {
     const [items, setItems] = useState([]);
     const navigation = useNavigation();

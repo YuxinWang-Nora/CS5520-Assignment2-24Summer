@@ -3,6 +3,10 @@ import { View, Text } from 'react-native';
 import Color from '../Styles/Color';
 import { commonStyles } from '../Styles/CommonStyles';
 
+// This is a reusable checkbox component that can be used in any screen.
+// It takes two props:
+// isSpecialChecked: a boolean that determines whether the checkbox is checked
+// setIsSpecialChecked: a function that will be called when the checkbox is pressed
 const SpecialCheckbox = ({ isSpecialChecked, setIsSpecialChecked }) => {
     return (
         <View style={commonStyles.checkboxContainer}>

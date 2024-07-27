@@ -8,7 +8,7 @@ const Color = {
     icon: 'white',
     titleText: 'white',
     lableText: 'white',
-    background: 'white',
+    background: '#fffaf0',
     darkBackground: '#696969',
     cardInfoBackground: 'white',
 }
