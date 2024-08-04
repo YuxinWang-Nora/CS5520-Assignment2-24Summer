@@ -1,20 +1,78 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Activities from './Screens/Activities';
+import Diet from './Screens/Diet';
+import Settings from './Screens/Settings';
+import AddActivities from './Screens/AddActivities';
+import AddDiet from './Screens/AddDiet';
+import Color from './Styles/Color';
+import { Ionicons } from '@expo/vector-icons';
+import { ThemeProvider } from './Context/ThemeContext';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const TabNavigator = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+          if (route.name === 'Activities') {
+            iconName = 'bicycle';
+          } else if (route.name === 'Diet') {
+            iconName = 'fast-food-outline';
+          } else if (route.name === 'Settings') {
+            iconName = 'settings';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarStyle: {
+          backgroundColor: Color.theme,
+        },
+        headerStyle: {
+          backgroundColor: Color.theme,
+        },
+        headerTintColor: Color.headerText,
+      })}
+    >
+      <Tab.Screen name="Activities" component={Activities} />
+      <Tab.Screen name="Diet" component={Diet} />
+      <Tab.Screen name="Settings" component={Settings} />
+    </Tab.Navigator>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  return (
+    <ThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: Color.theme,
+            },
+            headerTintColor: Color.headerText,
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={TabNavigator}
+            options={{ headerShown: false, title: '' }} />
+          <Stack.Screen
+            name="AddActivities"
+            component={AddActivities}
+            options={{ title: 'Add An Activitie' }} />
+          <Stack.Screen
+            name="AddDiet"
+            component={AddDiet}
+            options={{ title: 'Add A Diet Entry' }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
+  );
+};
+
+export default App;
+
